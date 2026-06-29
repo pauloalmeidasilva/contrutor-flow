@@ -1,0 +1,105 @@
+<div class="view-header" style="margin-bottom: 24px;">
+    <h2 class="view-title">Calculadora de Pisos</h2>
+    <p class="view-subtitle">Calcule a quantidade de peças e rejunte para revestir seus ambientes.</p>
+</div>
+
+<div style="display: grid; grid-template-columns: 1fr 1fr; gap: 24px; align-items: start;">
+
+    <!-- Formulário de adição -->
+    <div class="card">
+        <h3 style="margin-bottom: 16px; font-size: 1rem; color: var(--text-muted); font-weight: 600; text-transform: uppercase; letter-spacing: 0.05em;">Novo Ambiente</h3>
+        <form id="piso-form" onsubmit="event.preventDefault();">
+
+            <div class="form-group">
+                <label class="form-label" for="nome-ambiente">Nome do Ambiente</label>
+                <input type="text" id="nome-ambiente" class="form-input" placeholder="Ex: Sala, Quarto, Banheiro..." required>
+            </div>
+
+            <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 12px;">
+                <div class="form-group">
+                    <label class="form-label" for="comprimento-amb">Comprimento (m)</label>
+                    <input type="number" id="comprimento-amb" class="form-input" step="0.01" min="0.01" placeholder="Ex: 4.5" required>
+                </div>
+                <div class="form-group">
+                    <label class="form-label" for="largura-amb">Largura (m)</label>
+                    <input type="number" id="largura-amb" class="form-input" step="0.01" min="0.01" placeholder="Ex: 3.0" required>
+                </div>
+            </div>
+
+            <div class="form-group">
+                <label class="form-label" for="peca-piso">Tamanho da Peça</label>
+                <select id="peca-piso" class="form-input" required>
+                    <option value="" disabled selected>Selecione o formato</option>
+                    <option value="30x30">30 × 30 cm</option>
+                    <option value="45x45">45 × 45 cm</option>
+                    <option value="60x60">60 × 60 cm</option>
+                    <option value="60x120">60 × 120 cm</option>
+                    <option value="80x80">80 × 80 cm</option>
+                    <option value="90x90">90 × 90 cm</option>
+                    <option value="personalizado">Tamanho Personalizado</option>
+                </select>
+            </div>
+
+            <div id="campos-peca-personalizada" style="display: none;">
+                <p style="font-size: 0.85rem; color: var(--text-muted); margin-bottom: 12px;">
+                    Informe as dimensões da peça em <strong>centímetros</strong>.
+                </p>
+                <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 12px;">
+                    <div class="form-group">
+                        <label class="form-label" for="peca-comp-custom">Comprimento (cm)</label>
+                        <input type="number" id="peca-comp-custom" class="form-input" step="0.1" placeholder="Ex: 45">
+                    </div>
+                    <div class="form-group">
+                        <label class="form-label" for="peca-larg-custom">Largura (cm)</label>
+                        <input type="number" id="peca-larg-custom" class="form-input" step="0.1" placeholder="Ex: 45">
+                    </div>
+                </div>
+            </div>
+
+            <button type="submit" class="btn-secondary" style="width: 100%;">
+                + Adicionar Ambiente
+            </button>
+        </form>
+    </div>
+
+    <!-- Lista de ambientes -->
+    <div>
+        <div class="card" style="padding: 0; overflow: hidden;">
+            <div style="padding: 16px 20px; border-bottom: 1px solid var(--border); display: flex; justify-content: space-between; align-items: center;">
+                <h3 style="font-size: 1rem; color: var(--text-muted); font-weight: 600; text-transform: uppercase; letter-spacing: 0.05em;">Ambientes</h3>
+                <span id="badge-count-piso" class="badge">0 itens</span>
+            </div>
+
+            <div id="tabela-wrapper-piso">
+                <div id="lista-vazia-piso" style="text-align: center; padding: 40px; color: var(--text-muted);">
+                    <div style="font-size: 2rem; margin-bottom: 8px;">🏠</div>
+                    <p>Nenhum ambiente adicionado ainda.</p>
+                </div>
+                <table id="tabela-piso" style="display: none; width: 100%; border-collapse: collapse;">
+                    <thead>
+                        <tr style="background: var(--background);">
+                            <th class="th">Ambiente</th>
+                            <th class="th">Área (m²)</th>
+                            <th class="th">Peça</th>
+                            <th class="th">Peças</th>
+                            <th class="th"></th>
+                        </tr>
+                    </thead>
+                    <tbody id="tbody-piso"></tbody>
+                </table>
+            </div>
+        </div>
+
+        <div id="resultado-piso" class="result-box" style="margin-top: 16px;">
+            <div class="result-title">Resultado do Cálculo</div>
+            <div id="valor-area-total" class="result-value" style="font-size: 1.5rem;">0,00 m²</div>
+            <div id="valor-pecas-total" style="font-size: 2rem; font-weight: 700; color: #15803d; margin-top: 4px;">0 peças</div>
+            <p id="info-resultado-piso" style="font-size: 0.85rem; color: #166534; margin-top: 8px;"></p>
+        </div>
+
+        <button id="btn-calcular-piso" class="btn-primary" style="width: 100%; margin-top: 16px;" disabled>
+            Calcular Quantidade de Peças
+        </button>
+    </div>
+
+</div>
