@@ -1,30 +1,99 @@
-<div class="view-header" style="margin-bottom: 30px;">
+<div class="view-header" style="margin-bottom: 32px;">
     <h2 class="view-title">Bem-vindo ao ConstruFlow</h2>
     <p class="view-subtitle">Suas calculadoras de obras rápidas e fáceis.</p>
 </div>
 
-<div class="dashboard-grid">
-    <div class="card calc-card" onclick="app.loadView('calc-tijolos')">
-        <div class="calc-icon">🧱</div>
-        <h3 style="margin-bottom: 8px;">Calculadora de Tijolos</h3>
-        <p style="color: var(--text-muted); font-size: 0.9rem;">Calcule a quantidade de tijolos e blocos necessária para sua parede.</p>
+<!-- ── Fundação e Estrutura ─────────────────────────────────── -->
+<section class="categoria-section">
+    <div class="categoria-header">
+        <span class="categoria-icon">🏗️</span>
+        <h3 class="categoria-titulo">Fundação e Estrutura</h3>
     </div>
+    <div class="dashboard-grid">
+        <div class="card calc-card" onclick="app.loadView('calc-concreto')">
+            <div class="calc-icon">🪨</div>
+            <h4 class="calc-card-titulo">Calculadora de Concreto</h4>
+            <p class="calc-card-desc">Calcule cimento, areia e brita pelo traço desejado.</p>
+        </div>
+        <div class="card calc-card" onclick="app.loadView('calc-volume')">
+            <div class="calc-icon">📦</div>
+            <h4 class="calc-card-titulo">Calculadora de Volume</h4>
+            <p class="calc-card-desc">Some o volume de vigas, lajes e outros elementos.</p>
+        </div>
+    </div>
+</section>
 
-    <div class="card calc-card" onclick="app.loadView('calc-concreto')">
-        <div class="calc-icon">🪨</div>
-        <h3 style="margin-bottom: 8px;">Calculadora de Concreto</h3>
-        <p style="color: var(--text-muted); font-size: 0.9rem;">Calcule a quantidade de cimento, areia e brita pelo traço desejado.</p>
+<!-- ── Cobertura e Fechamento ──────────────────────────────── -->
+<section class="categoria-section">
+    <div class="categoria-header">
+        <span class="categoria-icon">🧱</span>
+        <h3 class="categoria-titulo">Cobertura e Fechamento</h3>
     </div>
+    <div class="dashboard-grid">
+        <div class="card calc-card" onclick="app.loadView('calc-tijolos')">
+            <div class="calc-icon">🧱</div>
+            <h4 class="calc-card-titulo">Calculadora de Tijolos</h4>
+            <p class="calc-card-desc">Calcule blocos e tijolos para paredes e alvenarias.</p>
+        </div>
+        <div class="card calc-card calc-card-breve">
+            <div class="calc-icon">🪟</div>
+            <h4 class="calc-card-titulo">Calculadora de Cobertura</h4>
+            <span class="badge-breve">Em breve</span>
+        </div>
+    </div>
+</section>
 
-    <div class="card calc-card" onclick="app.loadView('calc-volume')">
-        <div class="calc-icon">📦</div>
-        <h3 style="margin-bottom: 8px;">Calculadora de Volume</h3>
-        <p style="color: var(--text-muted); font-size: 0.9rem;">Some o volume de vigas, lajes e outros elementos da sua obra.</p>
+<!-- ── Acabamento e Revestimento ──────────────────────────── -->
+<section class="categoria-section">
+    <div class="categoria-header">
+        <span class="categoria-icon">📐</span>
+        <h3 class="categoria-titulo">Acabamento e Revestimento</h3>
     </div>
+    <div class="dashboard-grid">
+        <div class="card calc-card" onclick="app.loadView('calc-piso')">
+            <div class="calc-icon">📐</div>
+            <h4 class="calc-card-titulo">Calculadora de Pisos</h4>
+            <p class="calc-card-desc">Calcule peças e rejunte para revestir seus ambientes.</p>
+        </div>
+        <div class="card calc-card calc-card-breve">
+            <div class="calc-icon">🎨</div>
+            <h4 class="calc-card-titulo">Calculadora de Tinta</h4>
+            <span class="badge-breve">Em breve</span>
+        </div>
+        <div class="card calc-card calc-card-breve">
+            <div class="calc-icon">🪟</div>
+            <h4 class="calc-card-titulo">Calculadora de Argamassa</h4>
+            <span class="badge-breve">Em breve</span>
+        </div>
+    </div>
+</section>
 
-    <div class="card calc-card" onclick="app.loadView('calc-piso')">
-        <div class="calc-icon">📐</div>
-        <h3 style="margin-bottom: 8px;">Calculadora de Pisos</h3>
-        <p style="color: var(--text-muted); font-size: 0.9rem;">Calcule a quantidade de pisos e rejunte para seus ambientes.</p>
+<!-- ── Instalações Hidráulicas e Elétricas ─────────────────── -->
+<section class="categoria-section">
+    <div class="categoria-header">
+        <span class="categoria-icon">🔧</span>
+        <h3 class="categoria-titulo">Instalações Hidráulicas e Elétricas</h3>
     </div>
-</div>
+    <div class="categoria-breve-bloco">
+        <div class="breve-placeholder">
+            <span class="breve-placeholder-icon">🚧</span>
+            <p class="breve-placeholder-texto">Em breve</p>
+            <p class="breve-placeholder-sub">Calculadoras de tubulações, eletrodutos e mais.</p>
+        </div>
+    </div>
+</section>
+
+<!-- ── Ferramentas Utilitárias ─────────────────────────────── -->
+<section class="categoria-section" style="margin-bottom: 0;">
+    <div class="categoria-header">
+        <span class="categoria-icon">🛠️</span>
+        <h3 class="categoria-titulo">Ferramentas Utilitárias</h3>
+    </div>
+    <div class="categoria-breve-bloco">
+        <div class="breve-placeholder">
+            <span class="breve-placeholder-icon">🚧</span>
+            <p class="breve-placeholder-texto">Em breve</p>
+            <p class="breve-placeholder-sub">Conversores de medidas, estimativa de mão de obra e mais.</p>
+        </div>
+    </div>
+</section>
