@@ -1,0 +1,64 @@
+<div class="view-header" style="margin-bottom: 24px;">
+    <h2 class="view-title">Calculadora de Tijolos</h2>
+    <p class="view-subtitle">Descubra quantos tijolos você vai precisar para erguer sua parede.</p>
+</div>
+
+<div class="card" style="max-width: 600px; margin: 0 auto;">
+    <form id="tijolos-form" onsubmit="event.preventDefault();">
+        <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 16px;">
+            <div class="form-group">
+                <label class="form-label" for="largura-parede">Largura da Parede (m)</label>
+                <input type="number" id="largura-parede" class="form-input" step="0.01" required placeholder="Ex: 5.0">
+            </div>
+
+            <div class="form-group">
+                <label class="form-label" for="altura-parede">Altura da Parede (m)</label>
+                <input type="number" id="altura-parede" class="form-input" step="0.01" required placeholder="Ex: 3.0">
+            </div>
+        </div>
+
+        <div class="form-group">
+            <label class="form-label" for="tipo-tijolo">Tipo de Bloco / Tijolo</label>
+            <select id="tipo-tijolo" class="form-input" required>
+                <option value="" disabled selected>Selecione o bloco</option>
+                <option value="6-furos">Tijolo Baiano 6 Furos (9x14x19 cm)</option>
+                <option value="8-furos">Tijolo Baiano 8 Furos (9x19x19 cm)</option>
+                <option value="bloco-concreto-10">Bloco de Concreto 10 (09x19x39 cm)</option>
+                <option value="bloco-concreto-15">Bloco de Concreto 15 (14x19x39 cm)</option>
+                <option value="bloco-concreto-20">Bloco de Concreto 20 (19x19x39 cm)</option>
+                <option value="personalizado">Medida Personalizada</option>
+            </select>
+        </div>
+
+        <!-- Campos exibidos apenas quando "Personalizado" for selecionado -->
+        <div id="campos-personalizados" style="display: none;">
+            <p style="font-size: 0.85rem; color: var(--text-muted); margin-bottom: 12px;">
+                Informe as dimensões do bloco em <strong>centímetros</strong>.
+            </p>
+            <div style="display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 16px;">
+                <div class="form-group">
+                    <label class="form-label" for="bloco-altura">Altura (cm)</label>
+                    <input type="number" id="bloco-altura" class="form-input" step="0.1" placeholder="Ex: 19">
+                </div>
+                <div class="form-group">
+                    <label class="form-label" for="bloco-largura">Largura (cm)</label>
+                    <input type="number" id="bloco-largura" class="form-input" step="0.1" placeholder="Ex: 9">
+                </div>
+                <div class="form-group">
+                    <label class="form-label" for="bloco-comprimento">Comprimento (cm)</label>
+                    <input type="number" id="bloco-comprimento" class="form-input" step="0.1" placeholder="Ex: 19">
+                </div>
+            </div>
+        </div>
+
+        <button type="submit" class="btn-primary" style="margin-top: 10px;">Calcular</button>
+    </form>
+
+    <div id="resultado-tijolos" class="result-box">
+        <div class="result-title">Total Estimado de Tijolos</div>
+        <div id="valor-resultado-tijolos" class="result-value">0 un</div>
+        <p style="font-size: 0.85rem; color: #166534; margin-top: 8px;">
+            * Foi considerada uma margem de quebra/perda de 10%.
+        </p>
+    </div>
+</div>
