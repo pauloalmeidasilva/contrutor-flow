@@ -326,3 +326,61 @@ body {
 .btn-remover:hover {
     background-color: #fee2e2;
 }
+
+/* ── Cards de Material (Calculadora de Concreto) ── */
+.material-card {
+    display: flex;
+    align-items: center;
+    gap: 16px;
+    padding: 16px 20px;
+    border-radius: var(--radius);
+    border: 1px solid var(--border);
+    background-color: var(--surface);
+    box-shadow: var(--shadow-sm);
+}
+
+.material-icon {
+    font-size: 2rem;
+    flex-shrink: 0;
+}
+
+.material-label {
+    font-size: 0.8rem;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+    color: var(--text-muted);
+    margin-bottom: 2px;
+}
+
+.material-valor {
+    font-size: 1.4rem;
+    font-weight: 700;
+    color: var(--text-main);
+}
+
+.material-detalhe {
+    font-size: 0.85rem;
+    color: var(--text-muted);
+    margin-top: 2px;
+}
+
+.material-cimento { border-left: 4px solid #94a3b8; }
+.material-areia   { border-left: 4px solid #f59e0b; }
+.material-brita   { border-left: 4px solid #64748b; }
+
+/* Link inline para navegar entre calculadoras */
+.link-btn {
+    background: none;
+    border: none;
+    color: var(--accent);
+    font-size: inherit;
+    cursor: pointer;
+    padding: 0;
+    text-decoration: underline;
+    font-weight: 500;
+}
+
+.link-btn:hover {
+    color: var(--primary-hover);
+}

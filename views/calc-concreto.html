@@ -1,83 +1,118 @@
 <div class="view-header" style="margin-bottom: 24px;">
     <h2 class="view-title">Calculadora de Concreto</h2>
-    <p class="view-subtitle">Adicione os elementos da sua obra e calcule o volume total de concreto necessário.</p>
+    <p class="view-subtitle">Informe o volume e o traço desejado para descobrir a quantidade de materiais.</p>
 </div>
 
 <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 24px; align-items: start;">
 
-    <!-- Formulário de adição -->
+    <!-- Formulário -->
     <div class="card">
-        <h3 style="margin-bottom: 16px; font-size: 1rem; color: var(--text-muted); font-weight: 600; text-transform: uppercase; letter-spacing: 0.05em;">Novo Elemento</h3>
-        <form id="concreto-form" onsubmit="event.preventDefault();">
 
-            <div class="form-group">
-                <label class="form-label" for="nome-elemento">Nome do Elemento</label>
-                <input type="text" id="nome-elemento" class="form-input" placeholder="Ex: Viga Sala, Laje Quarto..." required>
-            </div>
+        <div class="form-group">
+            <label class="form-label" for="volume-concreto">Volume de Concreto (m³)</label>
+            <input type="number" id="volume-concreto" class="form-input" step="0.001" min="0.001" placeholder="Ex: 1.500">
+            <p style="font-size: 0.8rem; color: var(--text-muted); margin-top: 6px;">
+                Não sabe o volume? 
+                <button type="button" class="link-btn" onclick="app.loadView('calc-volume')">Use a Calculadora de Volume →</button>
+            </p>
+        </div>
 
+        <div class="form-group">
+            <label class="form-label" for="traco-select">Traço (Cimento : Areia : Brita)</label>
+            <select id="traco-select" class="form-input">
+                <option value="" disabled selected>Selecione o traço</option>
+                <optgroup label="── Traços Sugeridos ──────────────">
+                    <option value="1:1:2">1:1:2 — Estrutural especial (≈ 25 MPa) | Pilares, vigas</option>
+                    <option value="1:1.5:2.5">1:1,5:2,5 — Estrutural (≈ 20 MPa) | Lajes, fundações</option>
+                    <option value="1:2:3">1:2:3 — Uso geral (≈ 15 MPa) | Contra-piso, calçadas</option>
+                    <option value="1:2:4">1:2:4 — Fundações simples (≈ 13 MPa)</option>
+                    <option value="1:3:3">1:3:3 — Enchimento (≈ 12 MPa) | Alvenaria, muros</option>
+                </optgroup>
+                <optgroup label="── Personalizado ─────────────────">
+                    <option value="personalizado">Traço Personalizado</option>
+                </optgroup>
+            </select>
+        </div>
+
+        <!-- Campos de traço personalizado -->
+        <div id="campos-traco-custom" style="display: none;">
+            <p style="font-size: 0.85rem; color: var(--text-muted); margin-bottom: 12px;">
+                Informe as partes do traço em <strong>volume</strong> (ex: 1 : 2 : 3).
+            </p>
             <div style="display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 12px;">
                 <div class="form-group">
-                    <label class="form-label" for="comprimento-elem">Comprimento (m)</label>
-                    <input type="number" id="comprimento-elem" class="form-input" step="0.01" min="0.01" placeholder="Ex: 3.0" required>
+                    <label class="form-label" for="traco-cimento">Cimento</label>
+                    <input type="number" id="traco-cimento" class="form-input" value="1" min="0.1" step="0.1">
                 </div>
                 <div class="form-group">
-                    <label class="form-label" for="largura-elem">Largura (m)</label>
-                    <input type="number" id="largura-elem" class="form-input" step="0.01" min="0.01" placeholder="Ex: 0.15" required>
+                    <label class="form-label" for="traco-areia">Areia</label>
+                    <input type="number" id="traco-areia" class="form-input" step="0.1" min="0.1" placeholder="Ex: 2">
                 </div>
                 <div class="form-group">
-                    <label class="form-label" for="altura-elem">Altura (m)</label>
-                    <input type="number" id="altura-elem" class="form-input" step="0.01" min="0.01" placeholder="Ex: 0.20" required>
+                    <label class="form-label" for="traco-brita">Brita</label>
+                    <input type="number" id="traco-brita" class="form-input" step="0.1" min="0.1" placeholder="Ex: 3">
                 </div>
             </div>
+        </div>
 
-            <div class="form-group">
-                <label class="form-label" for="qtde-elem">Quantidade</label>
-                <input type="number" id="qtde-elem" class="form-input" value="1" min="1" step="1" required>
-            </div>
-
-            <button type="submit" id="btn-adicionar" class="btn-secondary" style="width: 100%;">
-                + Adicionar à Lista
-            </button>
-        </form>
+        <button id="btn-calcular-concreto" class="btn-primary" style="margin-top: 8px;">
+            Calcular Materiais
+        </button>
     </div>
 
-    <!-- Lista de elementos -->
+    <!-- Resultado -->
     <div>
-        <div class="card" style="padding: 0; overflow: hidden;">
-            <div style="padding: 16px 20px; border-bottom: 1px solid var(--border); display: flex; justify-content: space-between; align-items: center;">
-                <h3 style="font-size: 1rem; color: var(--text-muted); font-weight: 600; text-transform: uppercase; letter-spacing: 0.05em;">Elementos Adicionados</h3>
-                <span id="badge-count" class="badge">0 itens</span>
+        <div id="resultado-materiais" style="display: none;">
+
+            <!-- Cabeçalho do resultado -->
+            <div class="card" style="margin-bottom: 16px; border-left: 4px solid var(--primary);">
+                <p style="font-size: 0.8rem; color: var(--text-muted); text-transform: uppercase; letter-spacing: 0.05em; font-weight: 600; margin-bottom: 4px;">Traço utilizado</p>
+                <p id="traco-utilizado" style="font-size: 1.1rem; font-weight: 700;"></p>
+                <p style="font-size: 0.8rem; color: var(--text-muted); margin-top: 4px;">Volume calculado: <strong id="volume-utilizado"></strong></p>
             </div>
 
-            <div id="tabela-wrapper">
-                <div id="lista-vazia" style="text-align: center; padding: 40px; color: var(--text-muted);">
-                    <div style="font-size: 2rem; margin-bottom: 8px;">📋</div>
-                    <p>Nenhum elemento adicionado ainda.</p>
+            <!-- Cards de materiais -->
+            <div style="display: grid; grid-template-columns: 1fr; gap: 12px;">
+
+                <div class="material-card material-cimento">
+                    <div class="material-icon">🧱</div>
+                    <div class="material-info">
+                        <div class="material-label">Cimento Portland</div>
+                        <div class="material-valor" id="res-cimento-sacos"></div>
+                        <div class="material-detalhe" id="res-cimento-kg"></div>
+                    </div>
                 </div>
-                <table id="tabela-elementos" style="display: none; width: 100%; border-collapse: collapse;">
-                    <thead>
-                        <tr style="background: var(--background);">
-                            <th class="th">Nome</th>
-                            <th class="th">C × L × A (m)</th>
-                            <th class="th">Qtde</th>
-                            <th class="th">Vol. (m³)</th>
-                            <th class="th"></th>
-                        </tr>
-                    </thead>
-                    <tbody id="tbody-elementos"></tbody>
-                </table>
+
+                <div class="material-card material-areia">
+                    <div class="material-icon">🏖️</div>
+                    <div class="material-info">
+                        <div class="material-label">Areia Lavada</div>
+                        <div class="material-valor" id="res-areia-m3"></div>
+                        <div class="material-detalhe" id="res-areia-kg"></div>
+                    </div>
+                </div>
+
+                <div class="material-card material-brita">
+                    <div class="material-icon">🪨</div>
+                    <div class="material-info">
+                        <div class="material-label">Brita</div>
+                        <div class="material-valor" id="res-brita-m3"></div>
+                        <div class="material-detalhe" id="res-brita-kg"></div>
+                    </div>
+                </div>
+
             </div>
+
+            <p style="font-size: 0.78rem; color: var(--text-muted); margin-top: 16px; line-height: 1.5;">
+                * Valores com margem de <strong>10%</strong> para perdas. Cimento vendido em sacos de 50 kg. Areia e brita vendidas por m³. Densidades adotadas: areia ≈ 1.500 kg/m³, brita ≈ 1.550 kg/m³.
+            </p>
         </div>
 
-        <div id="resultado-concreto" class="result-box" style="margin-top: 16px;">
-            <div class="result-title">Volume Total de Concreto</div>
-            <div id="valor-resultado-concreto" class="result-value">0,000 m³</div>
-            <p id="info-resultado-concreto" style="font-size: 0.85rem; color: #166534; margin-top: 8px;"></p>
+        <!-- Estado inicial vazio -->
+        <div id="placeholder-resultado" class="card" style="text-align: center; padding: 48px 24px; color: var(--text-muted);">
+            <div style="font-size: 3rem; margin-bottom: 12px;">🧮</div>
+            <p style="font-weight: 500;">Preencha o formulário ao lado e clique em <strong>Calcular Materiais</strong>.</p>
         </div>
-
-        <button id="btn-calcular" class="btn-primary" style="width: 100%; margin-top: 16px;" disabled>
-            Calcular Volume Total
-        </button>
     </div>
 
 </div>

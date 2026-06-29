@@ -1,0 +1,83 @@
+<div class="view-header" style="margin-bottom: 24px;">
+    <h2 class="view-title">Calculadora de Volume</h2>
+    <p class="view-subtitle">Adicione os elementos da sua obra e calcule o volume total.</p>
+</div>
+
+<div style="display: grid; grid-template-columns: 1fr 1fr; gap: 24px; align-items: start;">
+
+    <!-- Formulário de adição -->
+    <div class="card">
+        <h3 style="margin-bottom: 16px; font-size: 1rem; color: var(--text-muted); font-weight: 600; text-transform: uppercase; letter-spacing: 0.05em;">Novo Elemento</h3>
+        <form id="concreto-form" onsubmit="event.preventDefault();">
+
+            <div class="form-group">
+                <label class="form-label" for="nome-elemento">Nome do Elemento</label>
+                <input type="text" id="nome-elemento" class="form-input" placeholder="Ex: Viga Sala, Laje Quarto..." required>
+            </div>
+
+            <div style="display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 12px;">
+                <div class="form-group">
+                    <label class="form-label" for="comprimento-elem">Comprimento (m)</label>
+                    <input type="number" id="comprimento-elem" class="form-input" step="0.01" min="0.01" placeholder="Ex: 3.0" required>
+                </div>
+                <div class="form-group">
+                    <label class="form-label" for="largura-elem">Largura (m)</label>
+                    <input type="number" id="largura-elem" class="form-input" step="0.01" min="0.01" placeholder="Ex: 0.15" required>
+                </div>
+                <div class="form-group">
+                    <label class="form-label" for="altura-elem">Altura (m)</label>
+                    <input type="number" id="altura-elem" class="form-input" step="0.01" min="0.01" placeholder="Ex: 0.20" required>
+                </div>
+            </div>
+
+            <div class="form-group">
+                <label class="form-label" for="qtde-elem">Quantidade</label>
+                <input type="number" id="qtde-elem" class="form-input" value="1" min="1" step="1" required>
+            </div>
+
+            <button type="submit" id="btn-adicionar" class="btn-secondary" style="width: 100%;">
+                + Adicionar à Lista
+            </button>
+        </form>
+    </div>
+
+    <!-- Lista de elementos -->
+    <div>
+        <div class="card" style="padding: 0; overflow: hidden;">
+            <div style="padding: 16px 20px; border-bottom: 1px solid var(--border); display: flex; justify-content: space-between; align-items: center;">
+                <h3 style="font-size: 1rem; color: var(--text-muted); font-weight: 600; text-transform: uppercase; letter-spacing: 0.05em;">Elementos Adicionados</h3>
+                <span id="badge-count" class="badge">0 itens</span>
+            </div>
+
+            <div id="tabela-wrapper">
+                <div id="lista-vazia" style="text-align: center; padding: 40px; color: var(--text-muted);">
+                    <div style="font-size: 2rem; margin-bottom: 8px;">📋</div>
+                    <p>Nenhum elemento adicionado ainda.</p>
+                </div>
+                <table id="tabela-elementos" style="display: none; width: 100%; border-collapse: collapse;">
+                    <thead>
+                        <tr style="background: var(--background);">
+                            <th class="th">Nome</th>
+                            <th class="th">C × L × A (m)</th>
+                            <th class="th">Qtde</th>
+                            <th class="th">Vol. (m³)</th>
+                            <th class="th"></th>
+                        </tr>
+                    </thead>
+                    <tbody id="tbody-elementos"></tbody>
+                </table>
+            </div>
+        </div>
+
+        <div id="resultado-concreto" class="result-box" style="margin-top: 16px;">
+            <div class="result-title">Volume Total</div>
+            <div id="valor-resultado-concreto" class="result-value">0,000 m³</div>
+            <p id="info-resultado-concreto" style="font-size: 0.85rem; color: #166534; margin-top: 8px;"></p>
+        </div>
+
+        <button id="btn-calcular" class="btn-primary" style="width: 100%; margin-top: 16px;" disabled>
+            Calcular Volume Total
+        </button>
+    </div>
+
+</div>
