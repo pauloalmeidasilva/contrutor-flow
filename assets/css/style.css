@@ -537,3 +537,33 @@ body {
 .link-btn:hover {
     color: var(--primary-hover);
 }
+
+/* ── Container para os Anúncios Google AdSense ── */
+.adsense-container {
+    width: 100%;
+    max-width: 600px;
+    min-height: 90px;
+    margin: 24px auto 0 auto;
+    background-color: var(--background);
+    border: 1px dashed var(--border);
+    border-radius: var(--radius);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    position: relative;
+    overflow: hidden;
+}
+
+/* Rótulo de anúncio discreto para estar em conformidade com as regras do AdSense */
+.adsense-container::before {
+    content: "PUBLICIDADE";
+    font-size: 0.625rem;
+    font-weight: 600;
+    color: var(--text-muted);
+    letter-spacing: 0.08em;
+    position: absolute;
+    top: 4px;
+    left: 8px;
+    opacity: 0.7;
+}
+

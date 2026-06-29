@@ -49,6 +49,9 @@ class AppRouter {
             // Carrega dinamicamente o script JS da view (se existir)
             this.loadViewScript(viewName);
 
+            // Inicializa anúncios do AdSense na view carregada
+            this.initAdSense();
+
         } catch (error) {
             console.error('Erro ao carregar a view:', error);
             this.contentContainer.innerHTML = `
@@ -92,6 +95,20 @@ class AppRouter {
         const functionName = 'init' + viewName.split('-').map(word => word.charAt(0).toUpperCase() + word.slice(1)).join('');
         if (typeof window[functionName] === 'function') {
             window[functionName]();
+        }
+    }
+
+    /**
+     * Aciona os slots do AdSense existentes na view recém-carregada
+     */
+    initAdSense() {
+        try {
+            const adSlots = this.contentContainer.querySelectorAll('.adsbygoogle');
+            adSlots.forEach(() => {
+                (window.adsbygoogle = window.adsbygoogle || []).push({});
+            });
+        } catch (e) {
+            console.warn('Google AdSense bloqueado ou ainda não carregado:', e);
         }
     }
 }
