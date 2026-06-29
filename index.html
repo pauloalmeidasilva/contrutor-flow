@@ -1,38 +1,60 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="pt-BR">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Construtor Flow</title>
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="assets/css/style.css">
-</head>
-<body>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap"
+      rel="stylesheet"
+    />
+    <link rel="stylesheet" href="assets/css/style.css" />
+  </head>
+  <body>
     <header class="app-header">
-        <div class="container header-content">
-            <h1 class="logo" onclick="app.loadView('home')">
-                <span class="logo-icon">🏗️</span> ConstruFlow
-            </h1>
-            <nav class="main-nav">
-                <button class="nav-btn" onclick="app.loadView('home')">Início</button>
-                <button class="nav-btn" onclick="app.loadView('calc-tijolos')">Tijolos</button>
-                <button class="nav-btn" onclick="app.loadView('calc-concreto')">Concreto</button>
-                <button class="nav-btn" onclick="app.loadView('calc-volume')">Volume</button>
-                <button class="nav-btn" onclick="app.loadView('calc-piso')">Pisos</button>
-            </nav>
-        </div>
+      <div class="container header-content">
+        <h1 class="logo" onclick="app.loadView('home')">
+          <span class="logo-icon">🏗️</span> ConstruFlow
+        </h1>
+        <nav class="main-nav">
+          <button class="nav-btn" onclick="app.loadView('home')">Início</button>
+          <button class="nav-btn" onclick="app.loadView('calc-tijolos')">
+            Tijolos
+          </button>
+          <button class="nav-btn" onclick="app.loadView('calc-concreto')">
+            Concreto
+          </button>
+          <button class="nav-btn" onclick="app.loadView('calc-volume')">
+            Volume
+          </button>
+          <button class="nav-btn" onclick="app.loadView('calc-piso')">
+            Pisos
+          </button>
+        </nav>
+      </div>
     </header>
 
+    <div class="view-header" style="margin-bottom: 32px">
+      <div class="container">
+        <h2 class="view-title">Bem-vindo ao ConstruFlow</h2>
+        <p class="view-subtitle">
+          Ferramentas de precisão para cálculos de engenharia civil. Suas
+          calculadoras de obras rápidas, confiáveis e fáceis de usar diretamente
+          no canteiro.
+        </p>
+      </div>
+    </div>
+
     <main id="app-content" class="container main-content">
-        <!-- O conteúdo das views será carregado aqui -->
+      <!-- O conteúdo das views será carregado aqui -->
     </main>
 
     <footer class="app-footer">
-        <p>&copy; 2026 ConstruFlow. Feito para facilitar sua obra.</p>
+      <p>&copy; 2026 ConstruFlow. Feito para facilitar sua obra.</p>
     </footer>
 
     <script src="assets/js/app.js"></script>
-</body>
+  </body>
 </html>
