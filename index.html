@@ -22,18 +22,11 @@
         </h1>
         <nav class="main-nav">
           <button class="nav-btn" onclick="app.loadView('home')">Início</button>
-          <button class="nav-btn" onclick="app.loadView('calc-tijolos')">
-            Tijolos
-          </button>
-          <button class="nav-btn" onclick="app.loadView('calc-concreto')">
-            Concreto
-          </button>
-          <button class="nav-btn" onclick="app.loadView('calc-volume')">
-            Volume
-          </button>
-          <button class="nav-btn" onclick="app.loadView('calc-piso')">
-            Pisos
-          </button>
+          <button class="nav-btn" onclick="app.navigateToCategory('cat-fundacao')">Estrutura</button>
+          <button class="nav-btn" onclick="app.navigateToCategory('cat-cobertura')">Fechamento</button>
+          <button class="nav-btn" onclick="app.navigateToCategory('cat-acabamento')">Acabamento</button>
+          <button class="nav-btn" onclick="app.navigateToCategory('cat-instalacoes')">Instalações</button>
+          <button class="nav-btn" onclick="app.navigateToCategory('cat-utilitarias')">Utilitários</button>
         </nav>
       </div>
     </header>

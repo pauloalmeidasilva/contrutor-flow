@@ -1,0 +1,187 @@
+<div class="calc-header">
+    <h2 class="calc-title">Calculadora de Cobertura</h2>
+    <p class="calc-subtitle">Calcule a área inclinada, quantidade de telhas, madeiramento e acessórios para o telhado.</p>
+</div>
+
+<div style="display: grid; grid-template-columns: 1fr 1fr; gap: 24px; align-items: start;">
+
+    <!-- Formulário -->
+    <div class="card">
+        <form id="cobertura-form" onsubmit="event.preventDefault();">
+            
+            <h3 style="font-size: 1.1rem; font-weight: 600; margin-bottom: 16px; color: var(--primary-hover);">1. Dimensões da Base</h3>
+            
+            <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 12px; margin-bottom: 16px;">
+                <div class="form-group" style="margin-bottom: 0;">
+                    <label class="form-label" for="largura-base">Largura da Base (m)</label>
+                    <input type="number" id="largura-base" class="form-input" step="0.01" min="0.1" required placeholder="Ex: 8.00">
+                </div>
+                <div class="form-group" style="margin-bottom: 0;">
+                    <label class="form-label" for="comprimento-base">Comprimento (m)</label>
+                    <input type="number" id="comprimento-base" class="form-input" step="0.01" min="0.1" required placeholder="Ex: 10.00">
+                </div>
+            </div>
+
+            <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 12px; margin-bottom: 16px;">
+                <div class="form-group" style="margin-bottom: 0;">
+                    <label class="form-label" for="beiral">Projeção do Beiral (m)</label>
+                    <input type="number" id="beiral" class="form-input" step="0.05" min="0" value="0.50" placeholder="Ex: 0.50">
+                </div>
+                <div class="form-group" style="margin-bottom: 0;">
+                    <label class="form-label" for="quedas">Quedas d'Água</label>
+                    <select id="quedas" class="form-input">
+                        <option value="1">1 queda (Monopitch)</option>
+                        <option value="2" selected>2 quedas (Gable)</option>
+                        <option value="4">4 quedas (Hip)</option>
+                    </select>
+                </div>
+            </div>
+
+            <h3 style="font-size: 1.1rem; font-weight: 600; margin-bottom: 16px; color: var(--primary-hover); margin-top: 20px;">2. Inclinação e Tipo de Telha</h3>
+
+            <div style="display: grid; grid-template-columns: 2fr 1fr; gap: 12px; margin-bottom: 16px;">
+                <div class="form-group" style="margin-bottom: 0;">
+                    <label class="form-label" for="inclinacao-valor">Inclinação</label>
+                    <input type="number" id="inclinacao-valor" class="form-input" step="0.1" min="1" value="30" required placeholder="Ex: 30">
+                </div>
+                <div class="form-group" style="margin-bottom: 0;">
+                    <label class="form-label" for="inclinacao-unidade">Unidade</label>
+                    <select id="inclinacao-unidade" class="form-input">
+                        <option value="percentual" selected>% (Percentual)</option>
+                        <option value="graus">° (Graus)</option>
+                    </select>
+                </div>
+            </div>
+
+            <div class="form-group" style="margin-bottom: 16px;">
+                <label class="form-label" for="tipo-telha">Tipo de Telha</label>
+                <select id="tipo-telha" class="form-input">
+                    <optgroup label="Cerâmica / Argila">
+                        <option value="romana" selected>Romana (~16 p/ m²)</option>
+                        <option value="portuguesa">Portuguesa (~17 p/ m²)</option>
+                        <option value="colonial">Colonial (~24 p/ m²)</option>
+                        <option value="americana">Americana (~12.5 p/ m²)</option>
+                    </optgroup>
+                    <optgroup label="Fibrocimento">
+                        <option value="fibrocimento-244">Fibrocimento (2.44m x 1.10m)</option>
+                        <option value="fibrocimento-183">Fibrocimento (1.83m x 1.10m)</option>
+                    </optgroup>
+                    <optgroup label="Outras opções">
+                        <option value="metalica">Metálica / Trapezoidal (~1 p/ m²)</option>
+                        <option value="personalizado">Personalizada (Definir rendimento)</option>
+                    </optgroup>
+                </select>
+            </div>
+
+            <!-- Rendimento personalizado -->
+            <div id="campo-telha-personalizada" class="form-group" style="display: none; margin-bottom: 16px;">
+                <label class="form-label" for="rendimento-personalizado">Rendimento da Telha (telhas/m²)</label>
+                <input type="number" id="rendimento-personalizado" class="form-input" step="0.1" min="0.1" placeholder="Ex: 15">
+            </div>
+
+            <h3 style="font-size: 1.1rem; font-weight: 600; margin-bottom: 16px; color: var(--primary-hover); margin-top: 20px;">3. Estrutura de Madeiramento (Opcional)</h3>
+
+            <div class="form-group" style="margin-bottom: 20px;">
+                <label class="form-label" style="display: flex; align-items: center; gap: 8px; cursor: pointer;">
+                    <input type="checkbox" id="calcular-madeiramento" style="width: 18px; height: 18px; cursor: pointer;">
+                    <span>Calcular estrutura de madeira (ripas, caibros e terças)</span>
+                </label>
+            </div>
+
+            <button type="submit" id="btn-calcular-cobertura" class="btn-primary">
+                Calcular Cobertura
+            </button>
+        </form>
+    </div>
+
+    <!-- Resultado -->
+    <div>
+        <div id="resultado-cobertura" style="display: none;">
+            
+            <!-- Resumo das áreas calculadas -->
+            <div class="card" style="margin-bottom: 16px; border-left: 4px solid var(--primary);">
+                <p style="font-size: 0.8rem; color: var(--text-muted); text-transform: uppercase; letter-spacing: 0.05em; font-weight: 600; margin-bottom: 4px;">Informações do Projeto</p>
+                <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 12px; margin-top: 8px;">
+                    <div>
+                        <p style="font-size: 0.85rem; color: var(--text-muted);">Área da Base (c/ Beiral):</p>
+                        <p id="res-area-base" style="font-size: 1.1rem; font-weight: 700; color: var(--text-main);"></p>
+                    </div>
+                    <div>
+                        <p style="font-size: 0.85rem; color: var(--text-muted);">Área Inclinada (Real):</p>
+                        <p id="res-area-inclinada" style="font-size: 1.1rem; font-weight: 700; color: var(--accent);"></p>
+                    </div>
+                </div>
+                <div style="margin-top: 8px; border-top: 1px solid var(--border); padding-top: 8px;">
+                    <p style="font-size: 0.85rem; color: var(--text-muted);">Fator de Correção (Inclinação): <strong id="res-fator-correcao"></strong></p>
+                </div>
+            </div>
+
+            <!-- Listagem de Materiais -->
+            <div style="display: grid; grid-template-columns: 1fr; gap: 12px;">
+
+                <!-- Telhas -->
+                <div class="material-card" style="background-color: var(--surface); border: 1px solid var(--border); border-radius: var(--radius); padding: 16px; display: flex; align-items: center; gap: 16px;">
+                    <div class="material-icon" style="font-size: 2rem;">🏠</div>
+                    <div class="material-info" style="flex: 1;">
+                        <div class="material-label" style="font-size: 0.85rem; color: var(--text-muted); font-weight: 600; text-transform: uppercase;">Telhas Necessárias</div>
+                        <div class="material-valor" id="res-quantidade-telhas" style="font-size: 1.5rem; font-weight: 700; color: var(--text-main); margin-top: 2px;"></div>
+                        <div class="material-detalhe" id="res-detalhe-telhas" style="font-size: 0.85rem; color: var(--text-muted); margin-top: 2px;"></div>
+                    </div>
+                </div>
+
+                <!-- Cumeeiras (se houver quedas correspondentes) -->
+                <div id="card-cumeeira" class="material-card" style="background-color: var(--surface); border: 1px solid var(--border); border-radius: var(--radius); padding: 16px; display: flex; align-items: center; gap: 16px;">
+                    <div class="material-icon" style="font-size: 2rem;">🧱</div>
+                    <div class="material-info" style="flex: 1;">
+                        <div class="material-label" style="font-size: 0.85rem; color: var(--text-muted); font-weight: 600; text-transform: uppercase;">Telhas de Cumeeira (Linha de Cume)</div>
+                        <div class="material-valor" id="res-quantidade-cumeeiras" style="font-size: 1.5rem; font-weight: 700; color: var(--text-main); margin-top: 2px;"></div>
+                        <div class="material-detalhe" id="res-detalhe-cumeeiras" style="font-size: 0.85rem; color: var(--text-muted); margin-top: 2px;"></div>
+                    </div>
+                </div>
+
+                <!-- Estrutura de Madeiramento (Condicional) -->
+                <div id="card-madeiramento" class="card" style="display: none; padding: 20px; border-top: 4px solid #8b5cf6;">
+                    <h4 style="font-size: 1rem; font-weight: 700; color: #8b5cf6; text-transform: uppercase; letter-spacing: 0.05em; margin-bottom: 12px; display: flex; align-items: center; gap: 6px;">
+                        <span>🪵</span> Estrutura de Madeiramento Estimada
+                    </h4>
+                    
+                    <div style="display: grid; grid-template-columns: 1fr; gap: 12px;">
+                        
+                        <div style="display: flex; justify-content: space-between; border-bottom: 1px solid var(--border); padding-bottom: 8px;">
+                            <div>
+                                <strong style="color: var(--text-main);">Ripas</strong>
+                                <p style="font-size: 0.8rem; color: var(--text-muted);">Espaçamento médio ~32cm (galga)</p>
+                            </div>
+                            <span id="res-ripas" style="font-weight: 700; color: var(--text-main);"></span>
+                        </div>
+
+                        <div style="display: flex; justify-content: space-between; border-bottom: 1px solid var(--border); padding-bottom: 8px;">
+                            <div>
+                                <strong style="color: var(--text-main);">Caibros</strong>
+                                <p style="font-size: 0.8rem; color: var(--text-muted);">Espaçamento médio ~50cm</p>
+                            </div>
+                            <span id="res-caibros" style="font-weight: 700; color: var(--text-main);"></span>
+                        </div>
+
+                        <div style="display: flex; justify-content: space-between; padding-bottom: 4px;">
+                            <div>
+                                <strong style="color: var(--text-main);">Terças (Vigas de Apoio)</strong>
+                                <p style="font-size: 0.8rem; color: var(--text-muted);">Espaçamento médio ~1.50m</p>
+                            </div>
+                            <span id="res-tercas" style="font-weight: 700; color: var(--text-main);"></span>
+                        </div>
+
+                    </div>
+                </div>
+
+                <!-- Dica/Info de Segurança -->
+                <div class="card" style="background-color: #eff6ff; border: 1px solid #bfdbfe; color: #1e3a8a; padding: 16px; font-size: 0.85rem; line-height: 1.5;">
+                    <strong>💡 Dica de Obra:</strong> Lembre-se de adicionar uma margem de segurança de 5% a 10% para cobrir perdas por quebras e recortes nos cantos e calhas. Verifique sempre a inclinação recomendada pelo fabricante da telha escolhida.
+                </div>
+
+            </div>
+
+        </div>
+    </div>
+
+</div>

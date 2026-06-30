@@ -1,5 +1,5 @@
 <!-- ── Fundação e Estrutura ─────────────────────────────────── -->
-<section class="categoria-section">
+<section id="cat-fundacao" class="categoria-section">
     <div class="categoria-header">
         <span class="categoria-icon">🏗️</span>
         <h3 class="categoria-titulo">Fundação e Estrutura</h3>
@@ -14,7 +14,7 @@
 </section>
 
 <!-- ── Cobertura e Fechamento ──────────────────────────────── -->
-<section class="categoria-section">
+<section id="cat-cobertura" class="categoria-section">
     <div class="categoria-header">
         <span class="categoria-icon">🧱</span>
         <h3 class="categoria-titulo">Cobertura e Fechamento</h3>
@@ -25,16 +25,16 @@
             <h4 class="calc-card-titulo">Calculadora de Tijolos</h4>
             <p class="calc-card-desc">Calcule blocos e tijolos para paredes e alvenarias.</p>
         </div>
-        <div class="card calc-card calc-card-breve">
-            <div class="calc-icon">🪟</div>
+        <div class="card calc-card" onclick="app.loadView('calc-cobertura')">
+            <div class="calc-icon">🏠</div>
             <h4 class="calc-card-titulo">Calculadora de Cobertura</h4>
-            <span class="badge-breve">Em breve</span>
+            <p class="calc-card-desc">Calcule telhas, madeiramento, inclinação e cumeeiras.</p>
         </div>
     </div>
 </section>
 
 <!-- ── Acabamento e Revestimento ──────────────────────────── -->
-<section class="categoria-section">
+<section id="cat-acabamento" class="categoria-section">
     <div class="categoria-header">
         <span class="categoria-icon">📐</span>
         <h3 class="categoria-titulo">Acabamento e Revestimento</h3>
@@ -45,10 +45,10 @@
             <h4 class="calc-card-titulo">Calculadora de Pisos</h4>
             <p class="calc-card-desc">Calcule peças e rejunte para revestir seus ambientes.</p>
         </div>
-        <div class="card calc-card calc-card-breve">
+        <div class="card calc-card" onclick="app.loadView('calc-tinta')">
             <div class="calc-icon">🎨</div>
             <h4 class="calc-card-titulo">Calculadora de Tinta</h4>
-            <span class="badge-breve">Em breve</span>
+            <p class="calc-card-desc">Calcule a quantidade de tinta, selador e massa corrida.</p>
         </div>
         <div class="card calc-card calc-card-breve">
             <div class="calc-icon">🪟</div>
@@ -59,7 +59,7 @@
 </section>
 
 <!-- ── Instalações Hidráulicas e Elétricas ─────────────────── -->
-<section class="categoria-section">
+<section id="cat-instalacoes" class="categoria-section">
     <div class="categoria-header">
         <span class="categoria-icon">🔧</span>
         <h3 class="categoria-titulo">Instalações Hidráulicas e Elétricas</h3>
@@ -74,7 +74,7 @@
 </section>
 
 <!-- ── Ferramentas Utilitárias ─────────────────────────────── -->
-<section class="categoria-section" style="margin-bottom: 0;">
+<section id="cat-utilitarias" class="categoria-section" style="margin-bottom: 0;">
     <div class="categoria-header">
         <span class="categoria-icon">🛠️</span>
         <h3 class="categoria-titulo">Ferramentas Utilitárias</h3>

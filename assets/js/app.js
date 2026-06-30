@@ -52,6 +52,11 @@ class AppRouter {
             // Inicializa anúncios do AdSense na view carregada
             this.initAdSense();
 
+            // volta para o topo da página
+            if (!viewName.includes('calc-')) {
+                window.scrollTo({ top: 0, behavior: 'smooth' });
+            }
+
         } catch (error) {
             console.error('Erro ao carregar a view:', error);
             this.contentContainer.innerHTML = `
@@ -61,6 +66,23 @@ class AppRouter {
                     <button class="btn-primary" style="width: auto; margin-top: 16px;" onclick="app.loadView('home')">Voltar ao Início</button>
                 </div>
             `;
+        }
+    }
+
+    /**
+     * Navega para a home e rola até a categoria pelo ID
+     */
+    async navigateToCategory(categoryId) {
+        let element = document.getElementById(categoryId);
+        if (!element) {
+            await this.loadView('home');
+            // Pequeno delay para garantir que o DOM foi injetado e renderizado
+            await new Promise(resolve => setTimeout(resolve, 50));
+            element = document.getElementById(categoryId);
+        }
+        
+        if (element) {
+            element.scrollIntoView({ behavior: 'smooth', block: 'start' });
         }
     }
 

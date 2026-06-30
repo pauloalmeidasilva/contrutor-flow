@@ -1,0 +1,167 @@
+<div class="calc-header">
+    <h2 class="calc-title">Calculadora de Tinta</h2>
+    <p class="calc-subtitle">Calcule a quantidade de tinta, selador, massa corrida e as embalagens ideais para sua pintura.</p>
+</div>
+
+<div style="display: grid; grid-template-columns: 1fr 1fr; gap: 24px; align-items: start;">
+
+    <!-- Formulário -->
+    <div class="card">
+        <form id="tinta-form" onsubmit="event.preventDefault();">
+            
+            <h3 style="font-size: 1.1rem; font-weight: 600; margin-bottom: 16px; color: var(--primary-hover);">1. Área de Pintura</h3>
+            
+            <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 12px; margin-bottom: 16px;">
+                <div class="form-group" style="margin-bottom: 0;">
+                    <label class="form-label" for="largura-paredes">Largura das Paredes (m)</label>
+                    <input type="number" id="largura-paredes" class="form-input" step="0.01" min="0.1" required placeholder="Soma das larguras. Ex: 12.50">
+                </div>
+                <div class="form-group" style="margin-bottom: 0;">
+                    <label class="form-label" for="altura-paredes">Altura / Pé-Direito (m)</label>
+                    <input type="number" id="altura-paredes" class="form-input" step="0.01" min="0.1" required placeholder="Ex: 2.80">
+                </div>
+            </div>
+
+            <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 12px; margin-bottom: 16px;">
+                <div class="form-group" style="margin-bottom: 0;">
+                    <label class="form-label" for="area-teto">Área do Teto (m²)</label>
+                    <input type="number" id="area-teto" class="form-input" step="0.1" min="0" value="0" placeholder="Opcional. Ex: 15.00">
+                </div>
+                <div class="form-group" style="margin-bottom: 0;">
+                    <label class="form-label" for="demaos">Número de Demãos</label>
+                    <select id="demaos" class="form-input">
+                        <option value="1">1 demão</option>
+                        <option value="2" selected>2 demãos (Recomendado)</option>
+                        <option value="3">3 demãos</option>
+                    </select>
+                </div>
+            </div>
+
+            <h3 style="font-size: 1.1rem; font-weight: 600; margin-bottom: 16px; color: var(--primary-hover); margin-top: 20px;">2. Descontar Vãos (Portas e Janelas)</h3>
+
+            <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 12px; margin-bottom: 16px;">
+                <div class="form-group" style="margin-bottom: 0;">
+                    <label class="form-label" for="qtd-portas">Qtd. Portas (~1.6m² cada)</label>
+                    <input type="number" id="qtd-portas" class="form-input" min="0" value="0" step="1">
+                </div>
+                <div class="form-group" style="margin-bottom: 0;">
+                    <label class="form-label" for="qtd-janelas">Qtd. Janelas (~2.0m² cada)</label>
+                    <input type="number" id="qtd-janelas" class="form-input" min="0" value="0" step="1">
+                </div>
+            </div>
+
+            <div class="form-group" style="margin-bottom: 16px;">
+                <label class="form-label" for="desconto-manual">Outros descontos manuais (m²)</label>
+                <input type="number" id="desconto-manual" class="form-input" min="0" step="0.1" value="0" placeholder="Ex: 3.50">
+            </div>
+
+            <h3 style="font-size: 1.1rem; font-weight: 600; margin-bottom: 16px; color: var(--primary-hover); margin-top: 20px;">3. Rendimento e Preparação</h3>
+
+            <div class="form-group" style="margin-bottom: 16px;">
+                <label class="form-label" for="tipo-tinta">Categoria/Rendimento da Tinta</label>
+                <select id="tipo-tinta" class="form-input">
+                    <option value="premium" selected>Premium (~12 m²/L por demão)</option>
+                    <option value="standard">Standard (~10 m²/L por demão)</option>
+                    <option value="economica">Econômica (~8 m²/L por demão)</option>
+                    <option value="personalizado">Personalizado (Definir m²/L)</option>
+                </select>
+            </div>
+
+            <div id="campo-tinta-personalizado" class="form-group" style="display: none; margin-bottom: 16px;">
+                <label class="form-label" for="rendimento-tinta-personalizado">Rendimento Customizado (m² / Litro / demão)</label>
+                <input type="number" id="rendimento-tinta-personalizado" class="form-input" step="0.1" min="0.1" placeholder="Ex: 11.5">
+            </div>
+
+            <div style="display: grid; grid-template-columns: 1fr; gap: 12px; margin-bottom: 20px;">
+                <div class="form-group" style="margin-bottom: 0;">
+                    <label class="form-label" style="display: flex; align-items: center; gap: 8px; cursor: pointer;">
+                        <input type="checkbox" id="calcular-selador" style="width: 18px; height: 18px; cursor: pointer;">
+                        <span>Calcular Selador (1 demão preparatória)</span>
+                    </label>
+                </div>
+                <div class="form-group" style="margin-bottom: 0;">
+                    <label class="form-label" style="display: flex; align-items: center; gap: 8px; cursor: pointer;">
+                        <input type="checkbox" id="calcular-massa" style="width: 18px; height: 18px; cursor: pointer;">
+                        <span>Calcular Massa Corrida (correção/acabamento)</span>
+                    </label>
+                </div>
+            </div>
+
+            <button type="submit" id="btn-calcular-tinta" class="btn-primary">
+                Calcular Pintura
+            </button>
+        </form>
+    </div>
+
+    <!-- Resultado -->
+    <div>
+        <div id="resultado-tinta" style="display: none;">
+            
+            <!-- Resumo das áreas calculadas -->
+            <div class="card" style="margin-bottom: 16px; border-left: 4px solid var(--primary);">
+                <p style="font-size: 0.8rem; color: var(--text-muted); text-transform: uppercase; letter-spacing: 0.05em; font-weight: 600; margin-bottom: 4px;">Resumo de Área</p>
+                <div style="display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 12px; margin-top: 8px;">
+                    <div>
+                        <p style="font-size: 0.825rem; color: var(--text-muted);">Área Bruta:</p>
+                        <p id="res-area-bruta" style="font-size: 1.1rem; font-weight: 700; color: var(--text-main);"></p>
+                    </div>
+                    <div>
+                        <p style="font-size: 0.825rem; color: var(--text-muted);">Total Vãos/Descontos:</p>
+                        <p id="res-area-descontos" style="font-size: 1.1rem; font-weight: 700; color: var(--text-muted);"></p>
+                    </div>
+                    <div>
+                        <p style="font-size: 0.825rem; color: var(--text-muted);">Área Líquida Pintar:</p>
+                        <p id="res-area-liquida" style="font-size: 1.1rem; font-weight: 700; color: var(--accent);"></p>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Listagem de Materiais -->
+            <div style="display: grid; grid-template-columns: 1fr; gap: 12px;">
+
+                <!-- Tinta -->
+                <div class="card" style="padding: 20px; border-top: 4px solid var(--primary);">
+                    <h4 style="font-size: 1rem; font-weight: 700; color: var(--primary-hover); text-transform: uppercase; letter-spacing: 0.05em; margin-bottom: 12px; display: flex; align-items: center; gap: 6px;">
+                        <span>🎨</span> Tinta Acrílica (Total: <span id="res-litros-tinta"></span> L)
+                    </h4>
+                    
+                    <p style="font-size: 0.85rem; color: var(--text-muted); margin-bottom: 12px;">
+                        Sugestão de compra ideal para evitar desperdício de tinta:
+                    </p>
+
+                    <div style="display: grid; grid-template-columns: 1fr; gap: 8px;" id="sugestao-embalagem-tinta">
+                        <!-- Gerado dinamicamente via JS -->
+                    </div>
+                </div>
+
+                <!-- Selador (Condicional) -->
+                <div id="card-selador" class="material-card" style="background-color: var(--surface); border: 1px solid var(--border); border-radius: var(--radius); padding: 16px; display: none; align-items: center; gap: 16px;">
+                    <div class="material-icon" style="font-size: 2rem;">🧴</div>
+                    <div class="material-info" style="flex: 1;">
+                        <div class="material-label" style="font-size: 0.85rem; color: var(--text-muted); font-weight: 600; text-transform: uppercase;">Selador Acrílico</div>
+                        <div class="material-valor" id="res-quantidade-selador" style="font-size: 1.3rem; font-weight: 700; color: var(--text-main); margin-top: 2px;"></div>
+                        <div class="material-detalhe" style="font-size: 0.85rem; color: var(--text-muted); margin-top: 2px;">Considerando 1 demão (Rendimento aproximado de 10 m²/L)</div>
+                    </div>
+                </div>
+
+                <!-- Massa Corrida (Condicional) -->
+                <div id="card-massa" class="material-card" style="background-color: var(--surface); border: 1px solid var(--border); border-radius: var(--radius); padding: 16px; display: none; align-items: center; gap: 16px;">
+                    <div class="material-icon" style="font-size: 2rem;">🥣</div>
+                    <div class="material-info" style="flex: 1;">
+                        <div class="material-label" style="font-size: 0.85rem; color: var(--text-muted); font-weight: 600; text-transform: uppercase;">Massa Corrida</div>
+                        <div class="material-valor" id="res-quantidade-massa" style="font-size: 1.3rem; font-weight: 700; color: var(--text-main); margin-top: 2px;"></div>
+                        <div class="material-detalhe" style="font-size: 0.85rem; color: var(--text-muted); margin-top: 2px;">Considerando consumo de ~1,5 kg/m² para correção padrão das paredes</div>
+                    </div>
+                </div>
+
+                <!-- Dica -->
+                <div class="card" style="background-color: #fef3c7; border: 1px solid #fde68a; color: #78350f; padding: 16px; font-size: 0.85rem; line-height: 1.5;">
+                    <strong>💡 Dica de Pintor:</strong> Na primeira demão sobre reboco novo, a parede consome mais tinta. Recomenda-se aplicar selador para uniformizar a absorção e economizar até 30% na quantidade de tinta.
+                </div>
+
+            </div>
+
+        </div>
+    </div>
+
+</div>
