@@ -1,0 +1,45 @@
+<div class="calc-header">
+    <h2 class="calc-title">Calculadora de Sapata Corrida</h2>
+    <p class="calc-subtitle">Informe as dimensões da sapata corrida para calcular o volume total de concreto.</p>
+</div>
+
+<div style="display: grid; grid-template-columns: 1fr 1fr; gap: 24px; align-items: start;">
+    <div class="card">
+        <form id="sapata-corrida-form" onsubmit="event.preventDefault();">
+            <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 12px;">
+                <div class="form-group">
+                    <label class="form-label" for="comprimento-sapata-corrida">Comprimento (m)</label>
+                    <input type="number" id="comprimento-sapata-corrida" class="form-input" step="0.01" min="0.01" placeholder="Ex: 8.00" required>
+                </div>
+                <div class="form-group">
+                    <label class="form-label" for="largura-sapata-corrida">Largura (m)</label>
+                    <input type="number" id="largura-sapata-corrida" class="form-input" step="0.01" min="0.01" placeholder="Ex: 0.40" required>
+                </div>
+                <div class="form-group">
+                    <label class="form-label" for="altura-sapata-corrida">Altura (m)</label>
+                    <input type="number" id="altura-sapata-corrida" class="form-input" step="0.01" min="0.01" placeholder="Ex: 0.25" required>
+                </div>
+            </div>
+
+            <button type="submit" class="btn-primary" style="margin-top: 6px;">
+                Calcular Volume
+            </button>
+        </form>
+    </div>
+
+    <div>
+        <div id="resultado-sapata-corrida" class="result-box" style="margin-top: 0; display: none;">
+            <div class="result-title">Volume</div>
+            <div id="valor-resultado-sapata-corrida" class="result-value">0,000 m³</div>
+            <p id="info-resultado-sapata-corrida" style="font-size: 0.85rem; color: #166534; margin-top: 8px;"></p>
+        </div>
+
+        <button id="btn-traco-sapata-corrida" type="button" class="link-btn" style="display: none; margin-top: 16px;" onclick="app.loadView('calc-concreto')">
+            Calcular traço →
+        </button>
+
+        <div class="card" style="margin-top: 16px; background-color: #eef2ff; border: 1px solid #c7d2fe; color: #3730a3; padding: 16px; font-size: 0.85rem; line-height: 1.5;">
+            <strong>ℹ️ Observação:</strong> Depois de calcular o volume, você pode ir direto para a calculadora de concreto para definir o traço.
+        </div>
+    </div>
+</div>
